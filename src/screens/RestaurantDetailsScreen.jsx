@@ -1,12 +1,26 @@
-// RestaurantDetailsScreen.js
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image,Button } from 'react-native';
 
 const RestaurantDetailsScreen = () => {
+  const restaurant = {
+    name: 'Sample Restaurant',
+    cuisine: 'Italian',
+    address: '123 Main Street',
+    image: require('./../../assets/food.jpg'), // Replace with your image path
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.screenText}>Restaurant Details Screen</Text>
-      {/* Add more details as needed */}
+      <Image source={restaurant.image} style={styles.image} resizeMode="cover" />
+      <View style={styles.detailsContainer}>
+        <Text style={styles.name}>{restaurant.name}</Text>
+        <Text style={styles.cuisine}>{restaurant.cuisine}</Text>
+        <Text style={styles.address}>{restaurant.address}</Text>
+      </View>
+        <Button
+          title="Give Rating"
+          color="#841584"
+        />
     </View>
   );
 };
@@ -14,13 +28,28 @@ const RestaurantDetailsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
   },
-  screenText: {
-    fontSize: 18,
+  image: {
+    width: '100%',
+    height: 200,
+  },
+  detailsContainer: {
+    padding: 20,
+  },
+  name: {
+    fontSize: 24,
     fontWeight: 'bold',
-    marginVertical: 10,
+    marginBottom: 10,
+  },
+  cuisine: {
+    fontSize: 18,
+    color: 'gray',
+    marginBottom: 10,
+  },
+  address: {
+    fontSize: 16,
+    color: 'black',
   },
 });
 
