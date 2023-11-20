@@ -5,8 +5,10 @@ import { SearchBar } from './SearchBar';
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View>
       <SearchBar />
+      <View style={styles.container}>
+      
       <Text style={styles.screenText}>Home Screen</Text>
       <TouchableOpacity
         style={styles.button}
@@ -15,6 +17,8 @@ const HomeScreen = ({ navigation }) => {
         <Text>Go to Restaurant Details</Text>
       </TouchableOpacity>
     </View>
+    </View>
+    
   );
 };
 

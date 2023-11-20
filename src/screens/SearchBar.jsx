@@ -46,10 +46,9 @@ export const SearchBar = () => {
 
 const styles = StyleSheet.create({
     container: {
-      alignSelf: 'center',
-      width: '80%',
-      margin: 20,
-      padding: 15,
+      alignSelf: 'stretch', // Stretch to the full width of the parent container
+      paddingTop: 20, // Add padding at the top for spacing
+      paddingHorizontal: 20, // Add horizontal padding for spacing
       backgroundColor: '#fff',
       borderRadius: 5,
       shadowColor: '#000',
@@ -71,15 +70,14 @@ const styles = StyleSheet.create({
       marginBottom: 10,
     },
     button: {
-        backgroundColor: 'black',
-        padding: 10,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      buttonText: {
-        color: 'white',
-        fontSize: 16,
-      },
-    
+      backgroundColor: 'black',
+      padding: 10,
+      borderRadius: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: 'white',
+      fontSize: 16,
+    },
   });
