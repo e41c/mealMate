@@ -9,7 +9,17 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "android": {
+        "permissions": ["INTERNET", "ACCESS_NETWORK_STATE"]
+      },
+      "ios": {
+        "infoPlist": {
+          "NSAppTransportSecurity": {
+            "NSAllowsArbitraryLoads": true
+          }
+        }
+      }
     },
     "assetBundlePatterns": [
       "**/*"

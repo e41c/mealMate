@@ -28,7 +28,13 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+      screenOptions={{ headerShown: false }}
+      tabBarOptions={{
+         activeTintColor: 'green', 
+         inactiveTintColor: 'black', 
+       }}
+      >
         <Tab.Screen
           name="Home"
           component={HomeStackScreen}
@@ -37,8 +43,9 @@ export default function App() {
               <Icon name="home" size={size} color={color} />
             ),
           }}
+          
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Map"
           component={MapScreen}
           options={{
@@ -46,7 +53,7 @@ export default function App() {
               <Icon name="map" size={size} color={color} />
             ),
           }}
-        />
+        /> */}
         <Tab.Screen
           name="Share"
           component={ShareScreen}

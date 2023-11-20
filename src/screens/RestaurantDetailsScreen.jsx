@@ -1,12 +1,29 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image,Button } from 'react-native';
+import { View, Text, StyleSheet, Image,Button, Linking } from 'react-native';
 
 const RestaurantDetailsScreen = () => {
   const restaurant = {
     name: 'Sample Restaurant',
     cuisine: 'Italian',
     address: '123 Main Street',
-    image: require('./../../assets/food.jpg'), // Replace with your image path
+    image: require('./../../assets/food.jpg'), 
+  };
+
+  const openMap = () => {
+    const address = restaurant.address;
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+
+    Linking.openURL(url)
+      .then((result) => {
+        if (result) {
+          console.log('Opened map successfully');
+        } else {
+          console.log("Couldn't to open map");
+        }
+      })
+      .catch((error) => {
+        console.error('Error opening map:', error);
+      });
   };
 
   return (
@@ -21,6 +38,11 @@ const RestaurantDetailsScreen = () => {
           title="Give Rating"
           color="#841584"
         />
+         <Button
+        title="Open Map"
+        onPress={openMap}
+        color="#007BFF" 
+      />
     </View>
   );
 };
