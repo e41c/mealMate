@@ -4,6 +4,7 @@ import React, { useState} from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 
 export const SearchBar = ({onSearch}) => {
+  
     const [query, setQuery] = useState('');
     const [cuisine, setCuisine] = useState('');
     const [location, setLocation] = useState('');
