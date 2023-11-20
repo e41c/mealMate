@@ -28,11 +28,18 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+      screenOptions={{ headerShown: false }}
+      tabBarOptions={{
+         activeTintColor: 'green', 
+         inactiveTintColor: 'black', 
+       }}
+      >
         <Tab.Screen
           name="Home"
           component={HomeStackScreen}
           options={{
+            headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <Icon name="home" size={size} color={color} />
             ),
