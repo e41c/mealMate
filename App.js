@@ -39,13 +39,13 @@ export default function App() {
           name="Home"
           component={HomeStackScreen}
           options={{
-            headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <Icon name="home" size={size} color={color} />
             ),
           }}
+          
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Map"
           component={MapScreen}
           options={{
@@ -53,7 +53,7 @@ export default function App() {
               <Icon name="map" size={size} color={color} />
             ),
           }}
-        />
+        /> */}
         <Tab.Screen
           name="Share"
           component={ShareScreen}

@@ -3,7 +3,7 @@ import React, { useState} from 'react'
 
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 
-export const SearchBar = () => {
+export const SearchBar = ({onSearch}) => {
     const [query, setQuery] = useState('');
     const [cuisine, setCuisine] = useState('');
     const [location, setLocation] = useState('');
@@ -46,9 +46,9 @@ export const SearchBar = () => {
 
 const styles = StyleSheet.create({
     container: {
-      alignSelf: 'stretch', // Stretch to the full width of the parent container
-      paddingTop: 20, // Add padding at the top for spacing
-      paddingHorizontal: 20, // Add horizontal padding for spacing
+      alignSelf: 'stretch', 
+      paddingTop: 20, 
+      paddingHorizontal: 20, 
       backgroundColor: '#fff',
       borderRadius: 5,
       shadowColor: '#000',
