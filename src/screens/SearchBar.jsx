@@ -36,7 +36,7 @@ export const SearchBar = ({onSearch}) => {
       value={location}
       onChangeText={setLocation}
     />
-     <TouchableOpacity style={styles.button} onPress={handleSearch}>
+     <TouchableOpacity style={styles.button} onPress={()=>onSearch(query, cuisine, location)}>
         <Text style={styles.buttonText}>Search</Text>
       </TouchableOpacity>
     
