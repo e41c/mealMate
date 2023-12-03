@@ -4,6 +4,7 @@ import React, { useState} from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 
 export const SearchBar = ({onSearch}) => {
+  
     const [query, setQuery] = useState('');
     const [cuisine, setCuisine] = useState('');
     const [location, setLocation] = useState('');
@@ -35,7 +36,7 @@ export const SearchBar = ({onSearch}) => {
       value={location}
       onChangeText={setLocation}
     />
-     <TouchableOpacity style={styles.button} onPress={handleSearch}>
+     <TouchableOpacity style={styles.button} onPress={()=>onSearch(query, cuisine, location)}>
         <Text style={styles.buttonText}>Search</Text>
       </TouchableOpacity>
     
