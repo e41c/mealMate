@@ -1,54 +1,65 @@
-// HomeScreen.js
-import React, {useState, useEffect} from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Button } from 'react-native';
 import { SearchBar } from './SearchBar';
-
 import axios from 'axios';
+import { Share } from 'react-native';  // Add this import
+import { StatusBar } from 'expo-status-bar';
 
 const HomeScreen = ({ navigation }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [errorM, setErrorM] = useState('');
 
-  const [errorM, setErrorM] = useState('')
+  const handleSearch = (query, cuisine, location) => {
+    if (!location) {
+      setErrorM('Location is required');
+      setIsSearching(false);
+      return;
+    }
 
+    setIsSearching(true);
+    setErrorM('');
 
-
-
-const handleSearch = (query, cuisine, location) => {
-
-  if (!location) {
-    setErrorM('Location is required');
-    setIsSearching(false);
-    return;
-  }
-
-
-    setIsSearching(true); 
-    setErrorM('')
-
-    axios.get('http://localhost:5000/search', {
-    
-      params: {
-        term: query,
-        categories: cuisine,
-        location: location
-       
-      },
-    })
-    .then((response) => {
-   
-      setSearchResults(response.data.businesses); 
-      setIsSearching(false); 
-    })
-    .catch((error) => {
-      
-      console.error(error);
-      setIsSearching(false); 
-    });
+    axios
+      .get('http://10.0.2.2:5000/search', {
+        params: {
+          term: query,
+          categories: cuisine,
+          location: location,
+        },
+      })
+      .then((response) => {
+        setSearchResults(response.data.businesses);
+        setIsSearching(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsSearching(false);
+      });
   };
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'BugNinza: \nhttp://www.ytoube.com/@BugNinza',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('shared with activity type of: ' + result.activityType + '');
+        } else {
+          console.log('shared successfully');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('dismissed');
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const renderItem = ({ item }) => {
     const categories = item.categories.map((cat) => cat.title).join(', ');
-    
+
     return (
       <TouchableOpacity
         style={styles.resultItem}
@@ -75,10 +86,16 @@ const handleSearch = (query, cuisine, location) => {
           style={styles.resultList}
         />
       )}
+
+      {/* Navigation to Share Screen */}
+      <View style={styles.homeContent}>
+        <Text style={styles.screenText}>Home Screen</Text>
+        <Button title="Go to Share Screen" onPress={onShare} />
+        <StatusBar style="auto" />
+      </View>
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   errorText: {
@@ -118,8 +135,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   resultList: {
-    flex: 1, 
-    width: '100%', 
+    flex: 1,
+    width: '100%',
   },
 });
 
