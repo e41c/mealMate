@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const app = express();
 
-const YELP_API_KEY = process.env.YELP_API_KEY; 
+const YELP_API_KEY = 'fhvf5sddW6spHX12arUFJVvALE5E3jui0rU1TNpZ2zAtPaRRQsdoKR8r67TvxG0IVasmSwtYtxLz9ujrRk5MyD6SAdP2vUkds-4rF7FFjaxcb34ZeRThvCQyKDxtZXYx';
 
 app.use(express.json());
 
