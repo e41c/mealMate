@@ -1,53 +1,58 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 
 const AboutScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>About Screen</Text>
+      <Image
+        source={require('../../assets/splash.png')}
+        style={styles.backgroundImage}
+      />
+      <Text style={styles.header}>About Page</Text>
+      
+
       <View style={styles.memberContainer}>
-        <View style={styles.memberBox}>
-          <Text style={styles.memberName}>Eric Grigor</Text>
-          <Text style={styles.memberID}>(Student ID: 100668121)</Text>
-        </View>
-        <View style={styles.memberBox}>
-          <Text style={styles.memberName}>Chris Tri</Text>
-          <Text style={styles.memberID}>(Student ID: 101335147)</Text>
-        </View>
-        <View style={styles.memberBox}>
-          <Text style={styles.memberName}>Yaganeh Daneshparvar</Text>
-          <Text style={styles.memberID}>(Student ID: 101383730)</Text>
-        </View>
+        {renderMemberBox("Memember: Eric Grigor", "100668121")}
+        {renderMemberBox("Memember: Chris Tri", "101335147")}
+        {renderMemberBox("Memeber: Yaganeh Daneshparvar", "101383730")}
       </View>
       {/* Add information about your app/company */}
     </View>
   );
 };
 
+const renderMemberBox = (name, studentID) => (
+  <View style={styles.memberBox} key={studentID}>
+    <Text style={styles.memberName}>{name}</Text>
+    <Text style={styles.memberID}>(Student ID: {studentID})</Text>
+  </View>
+);
+
+const window = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: '#F0F0F0', // Light gray background color
+  },
+  backgroundImage: {
+    width: window.width,
+    height: window.height,
+    resizeMode: 'cover',
+    ...StyleSheet.absoluteFillObject,
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: '#333', // Dark gray text color
-  },
-  teamText: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: '#555', // Medium gray text color
+    color: '#FFF', // White text color
   },
   memberContainer: {
     marginTop: 20,
   },
   memberBox: {
-    backgroundColor: '#E0E0E0', // Light gray box background color
+    backgroundColor: 'rgba(224, 224, 224, 0.8)', // Semi-transparent light gray box background color
     padding: 10,
     borderRadius: 8,
     marginBottom: 10,
@@ -57,11 +62,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#333', // Dark gray text color
+    color: '#FFF', // White text color
   },
   memberID: {
     fontSize: 14,
-    color: '#555', // Medium gray text color
+    color: '#EEE', // Light gray text color
   },
 });
 
