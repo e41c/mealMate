@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Button, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Button } from 'react-native';
 import { SearchBar } from './SearchBar';
 import axios from 'axios';
-import { Share } from 'react-native';
+import { Share } from 'react-native';  // Add this import
 import { StatusBar } from 'expo-status-bar';
 
 const HomeScreen = ({ navigation }) => {
@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: 'Meal Mate: ' + '\n' + 'Please share our App with your friends!' + '\n' + 'http://www.MealMate.com',
+        message: 'Meal Mate: ' + '\n'+ 'Please share our App with your friends!' + '\n' + 'http://www.MealMate.com',
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -87,15 +87,11 @@ const HomeScreen = ({ navigation }) => {
         />
       )}
 
-      {/* Navigation to Share Screen and Logo */}
-      <View style={styles.bottomContainer}>
-        <Image source={require('../../assets/splash.png')} style={styles.logo} />
-        <View style={styles.buttonContainer}>
-          <Button title="Share MealMate" onPress={onShare} />
-        </View>
+      {/* Navigation to Share Screen */}
+      <View style={styles.homeContent}>
+        <Button title="Share MealMate" onPress={onShare} />
+        <StatusBar style="auto" />
       </View>
-
-      <StatusBar style="auto" />
     </View>
   );
 };
@@ -127,36 +123,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logo: {
-    width: 200, // Adjust the width as needed
-    height: 100, // Adjust the height as needed
-    resizeMode: 'contain', // Adjust the resizeMode as needed
-    marginVertical: 20,
-  },
-  name: {
+  screenText: {
     fontSize: 18,
     fontWeight: 'bold',
+    marginVertical: 10,
   },
-  details: {
-    fontSize: 16,
+  button: {
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    marginTop: 10,
   },
   resultList: {
     flex: 1,
     width: '100%',
   },
-  bottomContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    paddingHorizontal: 20,
-    marginTop: 20,
-  },
-  buttonContainer: {
-    marginTop: 10,
-    width: '50%', // Adjust the width as needed
-  },
 });
 
 export default HomeScreen;
-

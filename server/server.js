@@ -1,69 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import axios from 'axios';
+const express = require('express');
+const axios = require('axios');
+require('dotenv').config();
 
-const MapScreen = ({ route }) => {
-  const { restaurant } = route.params;
-  const [nearbyPlaces, setNearbyPlaces] = useState([]);
+const app = express();
 
-  useEffect(() => {
-    const fetchNearbyPlaces = async () => {
-      try {
-        const response = await axios.get('http://10.0.2.2:5000/search', {
-          params: {
-            location: `${restaurant.coordinates.latitude},${restaurant.coordinates.longitude}`,
-          },
-        });
-        setNearbyPlaces(response.data.businesses);
-      } catch (error) {
-        console.error('Error fetching nearby places:', error);
-      }
-    };
+const YELP_API_KEY = 'fhvf5sddW6spHX12arUFJVvALE5E3jui0rU1TNpZ2zAtPaRRQsdoKR8r67TvxG0IVasmSwtYtxLz9ujrRk5MyD6SAdP2vUkds-4rF7FFjaxcb34ZeRThvCQyKDxtZXYx';
 
-    fetchNearbyPlaces();
-  }, [restaurant.coordinates]);
+app.use(express.json());
 
-  return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: restaurant.coordinates.latitude,
-          longitude: restaurant.coordinates.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
-      >
-        <Marker
-          coordinate={{
-            latitude: restaurant.coordinates.latitude,
-            longitude: restaurant.coordinates.longitude,
-          }}
-          title={restaurant.name}
-        />
-        {nearbyPlaces.map((place) => (
-          <Marker
-            key={place.id}
-            coordinate={{
-              latitude: place.coordinates.latitude,
-              longitude: place.coordinates.longitude,
-            }}
-            title={place.name}
-          />
-        ))}
-      </MapView>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    flex: 1,
-  },
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
 });
 
-export default MapScreen;
+app.get('/search', async (req, res) => {
+  try {
+    const { term, location, categories } = req.query; 
+    const response = await axios.get('https://api.yelp.com/v3/businesses/search', {
+      headers: {
+        Authorization: `Bearer ${YELP_API_KEY}`, 
+      },
+      params: {
+        term, 
+        location, 
+        categories,
+        
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(error.response?.status || 500).json({ message: error.message });
+  }
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
