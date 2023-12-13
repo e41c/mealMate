@@ -1,6 +1,5 @@
-// SplashScreen.js
 import React, { useEffect } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
 
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
@@ -14,11 +13,15 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/splash.png')} style={styles.logo} />
+      <Image
+        source={require('../../assets/splash.png')}
+        style={styles.logo}
+      />
     </View>
   );
 };
 
+const window = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,9 +29,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 200,
-    height: 200,
-    resizeMode: 'contain',
+    width: window.width,
+    height: window.height,
+    resizeMode: 'cover',
   },
 });
 
